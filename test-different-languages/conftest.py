@@ -8,15 +8,13 @@ options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
 
 def pytest_addoption(parser):
-    parser.addoption('--language', default=None, action='store', help='Choose your language: es / fr')
+    parser.addoption('--language', default='ru', action='store', help='Choose your language: es / fr')
 
 
 @pytest.fixture(scope='class')
 def browser(request):
     browser_lang = request.config.getoption('language')
-    print("\nStarting browser...")
     browser = webdriver.Chrome(options=options)
     browser.get(f'http://selenium1py.pythonanywhere.com/{browser_lang}/catalogue/coders-at-work_207/')
     yield browser
-    print("\nClosing browser...")
     browser.quit()
